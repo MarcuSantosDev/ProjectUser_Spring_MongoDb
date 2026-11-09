@@ -5,10 +5,10 @@ import com.cursojava.projeto_spring_mongo.dto.UserDTO;
 import com.cursojava.projeto_spring_mongo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,21 +25,5 @@ public class UserResource {
         List<User> list = service.findAll();
         List<UserDTO> listDto = list.stream().map(x -> new UserDTO(x)).toList();
         return ResponseEntity.ok().body(listDto);
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET) // ou só usar GetMapping
-    public ResponseEntity<UserDTO> findById(@PathVariable String id){
-        User user = service.findById(id);
-        return ResponseEntity.ok().body(new UserDTO(user));
-    }
-
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@RequestBody UserDTO objDto){
-        User obj = service.fromDto(objDto);
-        obj = service.insert(obj);
-
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-        return ResponseEntity.created(uri).build();
-
     }
 }
