@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -36,6 +37,25 @@ public class PostResource {
     public ResponseEntity<List<Post>> SearchTitle(@RequestParam(value="text",defaultValue = "") String text){
         text = URL.decodeParam(text);
         List<Post> list = service.searchTitle(text);
+        return ResponseEntity.ok().body(list);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "fullsearch")
+    public ResponseEntity<List<Post>> fullSearch(
+            @RequestParam(value = "text", defaultValue = "") String text,
+            @RequestParam(value = "minDate", defaultValue = "") String minDate,
+            @RequestParam(value = "maxDate", defaultValue = "") String maxDate) {
+
+        text = URL.decodeParam(text);
+
+        LocalDate min = URL.convertLocalDate(
+                minDate, LocalDate.of(1900, 1, 1));
+
+        LocalDate max = URL.convertLocalDate(
+                maxDate, LocalDate.now());
+
+        List<Post> list = service.fullSearch(text, min, max);
+
         return ResponseEntity.ok().body(list);
     }
 }
