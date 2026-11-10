@@ -7,7 +7,7 @@ Ao iniciar, a aplicação grava dados de exemplo e expõe CRUD de usuários e co
 ## 🖼️ Demonstração
 
 ### Banco de dados — MongoDB Compass
-<img src="assets/mongodb-compass.png" width="500" alt="MongoDB Compass">
+<img src="assets/mongodb-compass.png" width="550" alt="MongoDB Compass">
 
 ### Testes da API — Postman
 <img src="assets/postman-fullsearch.png" width="500" alt="Postman">
