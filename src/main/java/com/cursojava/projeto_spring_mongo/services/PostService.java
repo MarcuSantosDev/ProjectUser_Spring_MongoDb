@@ -6,6 +6,8 @@ import com.cursojava.projeto_spring_mongo.services.exception.ObjectNotFoundExcep
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PostService {
     @Autowired
@@ -14,6 +16,10 @@ public class PostService {
     public Post findById(String id){
         Post obj = repository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Post not found"));
         return obj;
+    }
+
+    public List<Post> findByTitle(String name){
+        return repository.findByTitleContainingIgnoreCase(name);
     }
 
 }
