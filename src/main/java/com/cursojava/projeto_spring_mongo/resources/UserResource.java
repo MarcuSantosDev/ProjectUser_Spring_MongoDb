@@ -1,5 +1,6 @@
 package com.cursojava.projeto_spring_mongo.resources;
 
+import com.cursojava.projeto_spring_mongo.domain.Post;
 import com.cursojava.projeto_spring_mongo.domain.User;
 import com.cursojava.projeto_spring_mongo.dto.UserDTO;
 import com.cursojava.projeto_spring_mongo.services.UserService;
@@ -56,4 +57,12 @@ public class UserResource {
         obj = service.update(obj);
         return ResponseEntity.noContent().build();
     }
+
+    @RequestMapping(value = "/{id}/posts" , method = RequestMethod.GET) // ou só usar GetMapping
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
+    }
+
+
 }
