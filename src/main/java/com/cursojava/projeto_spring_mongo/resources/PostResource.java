@@ -25,10 +25,17 @@ public class PostResource {
         return ResponseEntity.ok().body(obj);
     }
 
-    @RequestMapping(method = RequestMethod.GET,value = "titlesearch")
+    @RequestMapping(method = RequestMethod.GET,value = "findtitle")
     public ResponseEntity<List<Post>> findByTitle(@RequestParam(value="text",defaultValue = "") String text){
         text = URL.decodeParam(text);
         List<Post> list = service.findByTitle(text);
+        return ResponseEntity.ok().body(list);
+    }
+    // Mesma coisa que o findByTitle porém é query personalizada
+    @RequestMapping(method = RequestMethod.GET,value = "searchtitle")
+    public ResponseEntity<List<Post>> SearchTitle(@RequestParam(value="text",defaultValue = "") String text){
+        text = URL.decodeParam(text);
+        List<Post> list = service.searchTitle(text);
         return ResponseEntity.ok().body(list);
     }
 }
